@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { meetingRoomApi } from "../API/rtkQuery";
+import { meetingRoomApi } from '../rtkQuery';
 
 export const store = configureStore({
     reducer: {

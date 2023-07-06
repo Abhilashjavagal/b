@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDeleteRoomMutation, useRoomsQuery } from "../../API/rtkQuery";
+import { useDeleteRoomMutation, useRoomsQuery } from "../../rtkQuery";
 import user from "../../Images/meetingroom.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
@@ -29,6 +29,10 @@ const Room = () => {
     const filteredRooms = data?.filter((response) =>
         response.title.toLowerCase().includes(searchRoom.toLowerCase())
     )
+
+    const handleSearch = (event) => {
+        setSearchRoom(event.target.value);
+    };
 
     const navigateToEditRoom = (room) => {
         navigate(`/rooms/editroom/${room.id}`, { state: { room } })
@@ -58,7 +62,8 @@ const Room = () => {
             <button type="button" class="btn btn-primary"  onClick={() => navigate("/addrooms")}>Add Rooms </button>
             </div>
             <div class="col-2 p-4">
-                <input type="text" name="search" class="input" placeholder="Search" />
+                <input type="text" name="search" class="input"  value={searchRoom}
+                onChange={handleSearch} placeholder="Search" />
             </div>
             </div>
             {filteredRooms?.length === 0 ? (
@@ -71,6 +76,7 @@ const Room = () => {
                             <th scope="col">Room</th>
                             <th scope="col">Capacity</th>
                             <th scope="col">Bokings</th>
+                            <th scope="col">Price</th>
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -82,9 +88,10 @@ const Room = () => {
                                 <td>{room.title}</td>
                                 <td>{room.capacity}</td>
                                 <td></td>
+                                <td>{room.priceperday}</td>
                                 <td>{room.status}</td>
-                                <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditRoom(room)}></i>
-                                    <i className='fa fa-trash ms-3' style={{ "cursor": "pointer" }} onClick={() => handleDelete(room.id)}></i>
+                                <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }}   onClick={() => navigateToEditRoom(room)}></i>
+                                    <i className='fa fa-trash ms-3' style={{ "cursor": "pointer" }}    onClick={() => handleDelete(room.id)}></i>
                                 </td>
                             </tr>
                         ))}

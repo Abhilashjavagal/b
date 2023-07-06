@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Sidebar';
-import { useAddroomsMutation } from ".././../API/rtkQuery";
+import { useAddroomsMutation } from '../../rtkQuery';
 
 const AddRoom = () => {
     const navigate = useNavigate();

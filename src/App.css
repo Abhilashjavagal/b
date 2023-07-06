@@ -112,3 +112,11 @@
    width:200px;
    height:100px
 } 
+
+.fa-trash{
+  color:red  !important
+}
+
+.fa-edit{
+  color:blue !important
+}
