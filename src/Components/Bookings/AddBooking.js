@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAddbookingMutation } from "../../rtkQuery";
 import Sidebar from '../Sidebar';
 
 const AddBooking = () => {
@@ -7,12 +8,60 @@ const AddBooking = () => {
   const [step, setStep] = useState(1);
 
   const dateInputRef = useRef(null);
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [capacity, setCapacity] = useState('');
+  const [total, setTotal] = useState('');
+  const [bookfor, setBookFor] = useState('');
+  const [priceperday, setPricePerDay] = useState('');
+  const [status, setStatus] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [company, setCompany] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+  const [country, setCountry] = useState('');
+  const [addbooking, error, isLoading] = useAddbookingMutation()
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+      let timer;
+      if (successMessage) {
+          timer = setTimeout(() => {
+              setSuccessMessage("");
+          }, 1000);
+      }
+      return () => clearTimeout(timer);
+  }, [successMessage]);
+
+
+  const handleAddBooking = (e) => {
+      e.preventDefault();
+      const newBooking = {
+          title,
+          date,
+          capacity: parseInt(capacity),
+          total,
+          bookfor,
+          priceperday,
+          status,
+         users:[{name, phone, email,address, company, city, state, country, zip}]
+
+      };
+      addbooking(newBooking).unwrap().then((res) => {
+          setSuccessMessage("Booking added successfully!");
+          window.location.reload();
+      })
+  }
 
   const handleChange = (e) => {
 
     setDate(e.target.value);
 
-  };
+  }
 
   const handleNextClick = () => {
     if (step === 1) {
@@ -40,7 +89,7 @@ const AddBooking = () => {
                 <div class="col-sm-1">
                 <input
                 type="date"
-                onChange={handleChange}
+                onChange={(e) => setDate(e.target.value)}
                 ref={dateInputRef}
               />
                 </div>
@@ -48,29 +97,50 @@ const AddBooking = () => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Rooms</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Large Conference</option>
+              <select class="form-control" id="exampleFormControlSelect1"  value={title} onChange={(e) => setTitle(e.target.value)}>
+                <option>Rooms</option>
                 <option>Small Conference</option>
+                <option>Large Conference</option>
               </select>
               </div>
+              </div>
+              <div class="form-group row mb-4">
+              <label  class="col-sm-2 col-form-label">Capacity</label>
+              <div class="col-sm-5">
+              <input type="number" class="form-control" id="cpacity" placeholder="Cpacity" value={capacity} onChange={(e) => setCapacity(e.target.value)}></input>
+            </div>
               </div>
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Duaration</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Half-Day</option>
+              <select class="form-control" id="exampleFormControlSelect1" value={bookfor} onChange={(e) => setBookFor(e.target.value)}>
+                <option>Duration</option>
                 <option>Full-Day</option>
                 <option>Two-Days</option>
+                <option>Half-Day</option>
               </select>
               </div>
               </div>
               <div class="form-group row mb-4">
+              <label  class="col-sm-2 col-form-label">Price Per Day</label>
+              <div class="col-sm-5">
+              <input type="number" class="form-control" id="price" placeholder="Price" value={priceperday} onChange={(e) => setPricePerDay(e.target.value)}></input>
+              </div>
+              </div>
+              <div class="form-group row mb-4">
+              <label  class="col-sm-2 col-form-label">Total</label>
+              <div class="col-sm-5">
+               <input type="number" class="form-control" id="price" placeholder="Total"  value={total} onChange={(e) => setTotal(e.target.value)}></input>
+                </div>
+                 </div>
+              <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Status</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Pending</option>
+              <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option>Status</option>
                 <option>Canceled</option>
                 <option>Accepted</option>
+                <option>Pending</option>
               </select>
               </div>
               </div>
@@ -91,19 +161,19 @@ const AddBooking = () => {
   <div class="form-group row mb-4">
     <label  class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="name" placeholder="Name"></input>
+      <input type="text" class="form-control" id="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
     </div>
   </div>
   <div class="form-group row mb-4">
   <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
   <div class="col-sm-5">
-    <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
+    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
   </div>
 </div>
   <div class="form-group row mb-4">
     <label for="phonenumber" class="col-sm-2 col-form-label">Phone</label>
     <div class="col-sm-5">
-      <input type="number" class="form-control" id="phone" placeholder="Phone"></input>
+      <input type="number" class="form-control" id="phone" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
     </div>
   </div>
   <div class="form-group row mb-4">
@@ -115,37 +185,37 @@ const AddBooking = () => {
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Company</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Company name"></input>
+  <input type="text" class="form-control" id="name" placeholder="Company name" value={company} onChange={(e) => setCompany(e.target.value)}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Address</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Address"></input>
+  <input type="text" class="form-control" id="name" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">City</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="City"></input>
+  <input type="text" class="form-control" id="name" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">State</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="State"></input>
+  <input type="text" class="form-control" id="name" placeholder="State" value={state} onChange={(e) => setState(e.target.value)}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Zip</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Zipcode"></input>
+  <input type="text" class="form-control" id="name" placeholder="Zipcode" value={zip} onChange={(e) => setZip(e.target.value)}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Country</label>
 <div class="col-sm-5">
-<select class="form-control" id="exampleFormControlSelect1">
+<select class="form-control" id="exampleFormControlSelect1" value={country} onChange={(e) => setCountry(e.target.value)}>
   <option>India</option>
   <option>Srilanka</option>
   <option>Pakistan</option>
@@ -158,10 +228,10 @@ const AddBooking = () => {
 
 <div class="row">
 <div class="col-5">
-<button type="button" class="btn btn-success">Save</button>
+<button type="button" class="btn btn-success" onClick={handleAddBooking}>Save</button>
 </div>
 <div class="col-1">
-<button type="button" class="btn btn-danger">Cancel</button>
+<button type="button" class="btn btn-danger"  onClick={() => navigate("/booking")}>Cancel</button>
 </div>
 </div>
   </div>

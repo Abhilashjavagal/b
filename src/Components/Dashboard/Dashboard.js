@@ -1,125 +1,159 @@
-import React, { useRef, useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Sidebar from '../Sidebar';
+import { Link } from 'react-router-dom';
+import { useBookingsQuery } from '../../rtkQuery';
+import { useLocation } from 'react-router-dom';
+
 
 const Dashboard = () => {
-  const [date, setDate] = useState('');
+    const { data: bookings, error } = useBookingsQuery();
+    const [selectedDate, setSelectedDate] = useState('');
+    // const location = useLocation();
+    // const {user} = location.state;
 
-  const dateInputRef = useRef(null);
 
-  const handleChange = (e) => {
+    let bookingsMadeToday = 0;
+    let bookingsForToday = 0;
+    let totalBookings = 0;
+    let latestBookings = [];
 
-    setDate(e.target.value);
+    // Bookings Made Today, Bookings for today, Total bookings
+    if (bookings) {
+        const currentDate = new Date().toISOString().split('T')[0];
 
-  };
+        bookingsMadeToday = bookings.filter((booking) => {
+            const bookingDate = new Date(booking.date);
+            return (
+                bookingDate.getDate() === new Date().getDate() &&
+                bookingDate.getMonth() === new Date().getMonth() &&
+                bookingDate.getFullYear() === new Date().getFullYear()
+            );
+        }).length;
+
+        bookingsForToday = bookings.filter((booking) => booking.date === currentDate).length;
+        totalBookings = bookings.length;
+    }
+    //  For Latest Bookings
+    if (bookings) {
+        const sortedBookings = [...bookings].sort((a, b) => new Date(b.date) - new Date(a.date));
+        latestBookings = sortedBookings.slice(0, 3);
+    }
+
+    const formatDate = (dateString) => {
+        const parts = dateString.split('-');
+        const year = parts[0];
+        const month = parts[1].padStart(2, '0');
+        const day = parts[2].padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value;
+        setSelectedDate(selectedDate);
+    };
+
+    // Filter the bookings based on the selected date
+    const filteredBookings = bookings?.filter((booking) => booking.date === selectedDate);
 
     return (
-
-        <div className='container-fluid'>
+        <div className='container-fluid p-0'>
+              {/* <div className="header">
+                <p className="fs-2 mb-0 fw-bold">Meeting rooms</p>
+                <p className="fs-4 mb-0 fw-bold" style={{marginLeft:"50rem"}}>Welcome, {user.username}</p>
+                <Link to="/" className="d-flex align-items-center  px-0 text-dark text-decoration-none fs-5 fw-bold">
+                    <i className="fa fa-sign-out"></i> <span className="ms-3 d-none d-sm-inline">Logout</span>
+                    </Link>
+            </div> */}
             <div className='row'>
-            <div className="col-2 sidebar">
-               <Sidebar/>
-             </div>
-
-                <div className="col-10">
-                <div class="card-group m-4">
-                <div class="card">
-                  <div class="card-body">
-                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    <p class="card-text">2 Bookings made Today</p>
-                  </div>
+                <div className='col-auto col-md-3 col-xl-2 p-0'>
+                    <Sidebar />
                 </div>
-                <div class="card">
-                  <div class="card-body">
-                  <p class="card-text">2 Bookings for Today</p>
-                  </div>
+                <div className='col-auto col-md-9 col-xl-10'>
+                    <div className='fs-2'>Dashboard</div>
+                    <div className='card shadow mt-3 p-5'>
+                        <div className='row'>
+                            <div className='col-sm-4'>
+                                <i className='fa fa-file-text-o ms-3' style={{ "fontSize": "3rem" }}></i><span style={{ fontSize: "1.5rem", fontWeight: "bold" }} className='ms-3'> {bookingsMadeToday} Bookings made today</span>
+                            </div>
+                            <div className='col-sm-4'>
+                                <i className='fa fa-file-text-o ms-3' style={{ "fontSize": "3rem" }}></i><span style={{ fontSize: "1.5rem", fontWeight: "bold" }} className='ms-3'> {bookingsForToday} Bookings for today</span>
+                            </div>
+                            <div className='col-sm-4'>
+                                <i className='fa fa-file-text-o ms-3' style={{ "fontSize": "3rem" }}></i><span style={{ fontSize: "1.5rem", fontWeight: "bold" }} className='ms-3'> {totalBookings} Total bookings made</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='row my-5'>
+                        <div className='col-4'>
+                            <div className='card shadow' style={{ height: "25rem" }}>
+                                <figure className="text-start ms-4 mt-3">
+                                    <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
+                                        <p>Latest Bookings</p>
+                                    </blockquote>
+                                </figure>
+                                <div className='ms-4 me-4'>
+                                    {latestBookings.map((booking) => (
+                                        <div>
+                                            <p className='mb-0'>{booking.title}</p>
+                                            <p className='mb-0 '>Date : {booking.date}</p>
+                                            <p key={booking.id} style={{ color: "blue", fontSize: "1rem", fontWeight: "bold" }}>{booking.users[0].name}</p>
+                                            <hr></hr>
+                                        </div>
+
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-4'>
+                            <div className='card shadow' style={{ height: "25rem" }}>
+                                <figure className="text-start  ms-4 mt-3">
+                                    <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
+                                        <p>Reservations</p>
+                                    </blockquote>
+                                </figure>
+                                <div className='row ms-4 me-4'>
+                                    <div className="col-2 mb-4">
+                                        <label className="fs-5">Date</label>
+                                    </div>
+                                    <div className="col-10 mb-4">
+                                        <input className="form-control form-control-sm" type="date" value={selectedDate ? formatDate(selectedDate) : ""} onChange={handleDateChange} ></input>
+                                    </div>
+                                </div>
+                                {selectedDate && filteredBookings.length > 0 ? (
+                                    <div>
+                                        {filteredBookings.map((booking) => (
+                                            <div key={booking.id} className='ms-4 me-4'>
+                                                <p className='mb-0'>{booking.title}</p>
+                                                <p className='mb-0'>{booking.bookfor}</p>
+                                                <p key={booking.id} style={{ color: "blue", fontSize: "1rem", fontWeight: "bold" }}>{booking.users[0].name}</p>
+                                                <hr></hr>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className='ms-4 me-4'>No bookings available for the selected date.</p>
+                                )}
+                            </div>
+                        </div>
+                        <div className='col-4'>
+                            <div className='card shadow' style={{ height: "25rem" }}>
+                                <figure className="text-start  ms-4 mt-3">
+                                    <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
+                                        <p>Quick Links</p>
+                                    </blockquote>
+                                </figure>
+                                <Link to="/addbooking" className='ms-5'>+ Add Booking</Link>
+                                <Link to="/addrooms" className='ms-5'>+ Add Room</Link>
+                                <Link to="/booking" className='ms-5'>View Bookings</Link>
+                                <Link to="/room" className='ms-5 mb-5'>View Rooms</Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                  <div class="card-body">
-                  <p class="card-text">6 Total bookings made</p>
-                  </div>
-                </div>
-              </div>
-              
-
-               <div class="card-deck m-3">
-               <div class="row">
-               <div class="col-4">
-  <div class="card">
-  <div class="card-header bg-transparent border p-4">Latest Bookings</div>
-    <div class="card-body bg-transparent border latest_bookings">
-    <h5>Small Conference Room</h5>
-    <h5>Date:08/06/2023</h5>
-    <h5>Mallory Noman</h5>
-    </div>
-    <div class="card-body bg-transparent border latest_bookings">
-    <h5>Small Conference Room</h5>
-    <h5>Date:08/06/2023</h5>
-    <h5>Mallory Noman</h5>
-    </div>
-    <div class="card-body bg-transparent border latest_bookings">
-    <h5>Small Conference Room</h5>
-    <h5>Date:08/06/2023</h5>
-    <h5>Mallory Noman</h5>
-    </div>
-  </div>
-  </div>
-
-  <div class="col-4">
-  <div class="card">
-  <div class="card-header bg-transparent border p-4">Reservations</div>
-  
-  <div class="card-body">
-    <div class="form-group row mb-4">
-    <label  class="col-sm-2 col-form-label">Date</label>
-    <div class="col-sm-1">
-    <input
-    type="date"
-    onChange={handleChange}
-    ref={dateInputRef}
-  />
-    </div>
-  </div>
-  <div class="card-body latest_bookings">
-  <h5>Small Conference Room</h5>
-  <h5>Date:08/06/2023</h5>
-  <h5>Mallory Noman</h5>
-  </div>
-  <div class="card-body latest_bookings">
-  <h5>Small Conference Room</h5>
-  <h5>Date:08/06/2023</h5>
-  <h5>Mallory Noman</h5>
-  </div>
-
-    </div>
-  </div>
-  </div>
-
-  <div class="col-4">
-  <div class="card">
-  <div class="card-header bg-transparent border p-4">Quick Links</div>
-    <div class="card-body">
-    <div class="row p-2">
-    <a class="p-2" href="/booking">+ Add Booking</a>
-    <a class="p-2" href="">+ Add Room</a>
-    <a class="p-2" href="">View Bookings</a>
-    <a class="p-2" href="">View Rooms</a>
-    <a class="p-2" href="">Edit Booking Form</a>
-    <a class="p-2" href="">Language Settings</a>
-    <a class="p-2" href="">Back up your files</a>
-    </div>
-    </div>
-    </div>
-  </div>
-</div>
-</div>              
-       </div>
+            </div>
         </div>
-        </div>
-
     );
 
-};
+}
 
 export default Dashboard;

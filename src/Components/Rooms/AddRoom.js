@@ -122,7 +122,7 @@ const AddRoom = () => {
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Status</label>
 <div class="col-sm-5">
-<input className="form-control form-control-lg" type="text" value={status} onChange={(e) => setStatus(e.target.value)}></input>
+<input className="form-control form-control-lg" placeholder="Status" type="text" value={status} onChange={(e) => setStatus(e.target.value)}></input>
 </div>
 </div>
  

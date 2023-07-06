@@ -8,6 +8,8 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Room from './Components/Rooms/Room';
 import Booking from './Components/Bookings/Booking';
 import AddRoom from './Components/Rooms/AddRoom';
+import User from './Components/Users/User';
+import AddUser from './Components/Users/AddUser';
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/addbooking" element={<AddBooking />} />
         <Route path="/addrooms" element={<AddRoom />} />
         <Route path="/booking" element={<Booking/>} />
+        <Route path="/user" element={<User />} />
+        <Route path="/adduser" element={<AddUser/>} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
 </div>

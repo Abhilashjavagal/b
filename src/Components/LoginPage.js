@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import '../App.css';
 import Link from "@mui/material/Link";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const LoginPage = () => {
           />
         </div>
         {errorMessage && <p>{errorMessage}</p>}
-        <button type="submit">Login</button>
+        <button type="submit" onClick={()=>navigate("/dashboard")}>Login</button>
         <br/>
         <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
