@@ -101,7 +101,7 @@ const Booking = () => {
                               </td>
                               <td>{booking.total}</td>
                               <td>{booking.status}</td>
-                              <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditBooking(booking)}></i>
+                              <td>
                                   <i className='fa fa-trash ms-3'  style={{"cursor":"pointer"}} onClick={() => handleDelete(booking.id)}></i>
                               </td>
                           </tr>

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { meetingRoomApi } from '../rtkQuery';
+import { meetingRoomBookingApi } from '../rtkQuery';
 
 export const store = configureStore({
     reducer: {
-        [meetingRoomApi.reducerPath]: meetingRoomApi.reducer
+        [meetingRoomBookingApi.reducerPath]: meetingRoomBookingApi.reducer
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(meetingRoomApi.middleware),
+    getDefaultMiddleware().concat(meetingRoomBookingApi.middleware),
 })

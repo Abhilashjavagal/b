@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const meetingRoomApi = createApi({
-    reducerPath: 'meetingRoomApi',
+export const meetingRoomBookingApi = createApi({
+    reducerPath: 'meetingRoomBookingApi',
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
     endpoints: (builder) => ({
        
@@ -14,13 +14,6 @@ export const meetingRoomApi = createApi({
                 url: "/bookings",
                 method: "POST",
                 body: booking,
-            })
-        }),
-        editbooking: builder.mutation({
-            query: (booking) => ({
-                url: `/rooms/${booking.id}`,
-                method: 'PUT',
-                body: booking
             })
         }),
         deleteBooking: builder.mutation({
@@ -40,13 +33,6 @@ export const meetingRoomApi = createApi({
                 body: room,
             })
         }),
-        editroom: builder.mutation({
-            query: (room) => ({
-                url: `/rooms/${room.id}`,
-                method: 'PUT',
-                body: room
-            })
-        }),
         deleteRoom: builder.mutation({
             query: (id) => ({
                 url: `/rooms/${id}`,
@@ -64,13 +50,6 @@ export const meetingRoomApi = createApi({
                 body: user
             })
         }),
-        edituser : builder.mutation({
-            query: (user) => ({
-                url: `/users/${user.id}`,
-                method: 'PUT',
-                body: user
-            })
-        }),
         deleteUser: builder.mutation({
             query: (id) => ({
                 url: `/users/${id}`,
@@ -85,4 +64,4 @@ export const { useLoginQuery, useSignupMutation, useRoomsQuery,
     useAddroomsMutation, useEditroomMutation, useDeleteRoomMutation,
     useBookingsQuery, useAddbookingMutation, useEditbookingMutation, useDeleteBookingMutation,
     useGetusersQuery, useAddusersMutation, useEdituserMutation, useDeleteUserMutation,
-    useGetroombookingsQuery, useUserbookingsMutation} = meetingRoomApi;
+    useGetroombookingsQuery, useUserbookingsMutation} = meetingRoomBookingApi;

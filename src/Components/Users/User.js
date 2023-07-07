@@ -98,7 +98,7 @@ const User = () => {
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
                                 <td>{user.status}</td>
-                                <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditUser(user)}></i>
+                                <td>
                                     <i className='fa fa-trash ms-3'  style={{"cursor":"pointer"}} onClick={() => handleDelete(user.id)}></i>
                                 </td>
                             </tr>

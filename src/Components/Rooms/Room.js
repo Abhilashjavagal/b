@@ -3,7 +3,6 @@ import Sidebar from '../Sidebar';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDeleteRoomMutation, useRoomsQuery } from "../../rtkQuery";
-import user from "../../Images/meetingroom.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import { Box } from "@mui/material";
@@ -86,7 +85,7 @@ const Room = () => {
                                 <td>{room.capacity}</td>
                                 <td>{room.priceperday}</td>
                                 <td>{room.status}</td>
-                                <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }}   onClick={() => navigateToEditRoom(room)}></i>
+                                <td>
                                     <i className='fa fa-trash ms-3' style={{ "cursor": "pointer" }}    onClick={() => handleDelete(room.id)}></i>
                                 </td>
                             </tr>

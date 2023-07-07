@@ -138,12 +138,6 @@ const AddBooking = () => {
       })
   }
 
-  const handleChange = (e) => {
-
-    setDate(e.target.value);
-
-  }
-
   const handleNextClick = () => {
     if (step === 1) {
         setStep(2);
