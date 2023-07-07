@@ -56,7 +56,6 @@ export const meetingRoomBookingApi = createApi({
                 method: 'DELETE',
             })
         }),
-
     })
 })
 

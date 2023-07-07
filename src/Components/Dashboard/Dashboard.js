@@ -15,7 +15,7 @@ const Dashboard = () => {
     let bookingsMadeToday = 0;
     let bookingsForToday = 0;
     let totalBookings = 0;
-    let latestBookings = [];
+    let latestBookings = [ ];
 
     // Bookings Made Today, Bookings for today, Total bookings
     if (bookings) {
@@ -89,7 +89,7 @@ const Dashboard = () => {
                                         <div className='latest_book'>
                                             <p className='mb-0'>{booking.title}</p>
                                             <p className='mb-0'>Date : {booking.date}</p>
-                                            <p key={booking.id} style={{ color: "blue", fontSize: "1.5rem", fontWeight: "bold" , }}>{booking.users[0].name}</p>
+                                            <p key={booking.id} style={{  fontSize: "1.5rem", fontWeight: "bold" , }}>{booking.users[0].name}</p>
                                             <hr></hr>
                                         </div>
 
@@ -139,6 +139,7 @@ const Dashboard = () => {
                                 <Link to="/addrooms" className='ms-5'>+ Add Room</Link>
                                 <Link to="/booking" className='ms-5'>View Bookings</Link>
                                 <Link to="/room" className='ms-5 mb-5'>View Rooms</Link>
+                                <Link to="/userrooms" className='ms-5 mb-5'>User Module</Link>
                             </div>
                         </div>
                     </div>

@@ -26,29 +26,7 @@ const UserBooking = () => {
   const [addbooking, error, isLoading] = useAddbookingMutation()
   const [successMessage, setSuccessMessage] = useState("");
 
-  useEffect(() => {
-      let timer;
-      if (successMessage) {
-          timer = setTimeout(() => {
-              setSuccessMessage("");
-          }, 1000);
-      }
-      return () => clearTimeout(timer);
-  }, [successMessage]);
-
-
-  const handleAddBooking = (e) => {
-      e.preventDefault();
-      const newBooking = {
-          date,
-          bookfor,
-          attendies
-      };
-      addbooking(newBooking).unwrap().then((res) => {
-          setSuccessMessage("Booking added successfully!");
-          window.location.reload();
-      })
-  }
+  
 
     return (
 
@@ -92,7 +70,7 @@ const UserBooking = () => {
 
       <div class="row">
      <div class="col-5">
-     <button type="button" class="btn btn-success" onClick={handleAddBooking}>Save</button>
+     <button type="button" class="btn btn-success">Save</button>
      </div>
     <div class="col-1">
      <button type="button" class="btn btn-danger"  onClick={() => navigate("/userrooms")}>Back</button>

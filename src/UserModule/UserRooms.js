@@ -41,10 +41,10 @@ const UserRooms = () => {
         <img  class="room_image"src={user1} alt=""/>
         <div className='row' >
         <div className='col-7' style={{paddingTop: "1.5rem",}}>
-        <h2>Capacity : 12people</h2>
+        <h2>Capacity : 30people</h2>
         </div>
         <div className='col-4' style={{paddingTop: "1.5rem",}}>
-        <h2>Price : $789</h2>
+        <h2>Price : $1289</h2>
         </div>
         </div>
      </div>
