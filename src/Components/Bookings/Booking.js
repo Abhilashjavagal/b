@@ -39,11 +39,7 @@ const Booking = () => {
     filteredBookings = filteredBookings?.filter((response) =>
         response.title.toLowerCase().includes(searchBooking.toLowerCase())
     )
-
-    const navigateToEditBooking = (booking) => {
-        navigate(`/bookings/editbooking/${booking.id}`, { state: { booking } })
-    }
-
+    
     const handleDelete = (bookingId) => {
         deleteBooking(bookingId).unwrap().then((res)=>{
             setSuccessMessage("Booking deleted successfully!");
@@ -98,7 +94,7 @@ const Booking = () => {
                                 </td>
                                 <td>{booking.total}</td>
                                 <td>{booking.status}</td>
-                                <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditBooking(booking)}></i>
+                                <td>
                                     <i className='fa fa-trash ms-3'  style={{"cursor":"pointer"}} onClick={() => handleDelete(booking.id)}></i>
                                 </td>
                             </tr>
