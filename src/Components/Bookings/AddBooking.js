@@ -4,9 +4,89 @@ import { useAddbookingMutation } from "../../rtkQuery";
 import Sidebar from '../Sidebar';
 
 const AddBooking = () => {
+
+  const dateChangeHandler =
+  (e) => {
+    setDate(e.target.value)
+ };
+
+
+  const titleChangeHandler =
+    (e) => {
+      setTitle(e.target.value)
+   };
+
+   const capacityChangeHandler =
+    (e) => {
+     setCapacity(e.target.value)
+  };
+    
+  const bookforChangeHandler =
+  (e) => {
+      setBookFor(e.target.value)
+   };
+
+   const priceperdayChangeHandler =
+    (e) => {
+    setPricePerDay(e.target.value)
+  };
+    
+  const totalChangeHandler =
+    (e) => {
+    setTotal(e.target.value)
+  };
+   
+  const statusChangeHandler =
+   (e) => {
+    setStatus(e.target.value)
+  };
+     
+  const nameChangeHandler =
+     (e) => {
+    setName(e.target.value)
+   };
+     
+   const emailChangeHandler =
+      (e) => {
+       setEmail(e.target.value)
+     };
+
+     const phoneChangeHandler =
+      (e) => {
+       setPhone(e.target.value)
+    };
+
+    const companyChangeHandler =
+     (e) => {
+    setCompany(e.target.value)
+    };
+
+   const addressChangeHandler =
+     (e) => {
+     setAddress(e.target.value)
+   };
+    
+   const cityChangeHandler =
+    (e) => {
+    setCity(e.target.value)
+   }; 
+          
+   const stateChangeHandler =
+     (e) => {
+    setState(e.target.value)
+  }; 
+
+    const zipChangeHandler =
+     (e) => {
+     setZip(e.target.value)
+   }; 
+
+   const countryChangeHandler =
+   (e) => {
+    setCountry(e.target.value)
+  }; 
   const [date, setDate] = useState('');
   const [step, setStep] = useState(1);
-
   const dateInputRef = useRef(null);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
@@ -53,6 +133,7 @@ const AddBooking = () => {
       };
       addbooking(newBooking).unwrap().then((res) => {
           setSuccessMessage("Booking added successfully!");
+          navigate('/booking')
           window.location.reload();
       })
   }
@@ -89,7 +170,7 @@ const AddBooking = () => {
                 <div class="col-sm-1">
                 <input
                 type="date"
-                onChange={(e) => setDate(e.target.value)}
+                onChange={dateChangeHandler}
                 ref={dateInputRef}
               />
                 </div>
@@ -97,7 +178,7 @@ const AddBooking = () => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Rooms</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1"  value={title} onChange={(e) => setTitle(e.target.value)}>
+              <select class="form-control" id="exampleFormControlSelect1"  value={title} onChange={titleChangeHandler}>
                 <option>Rooms</option>
                 <option>Small Conference</option>
                 <option>Large Conference</option>
@@ -107,13 +188,13 @@ const AddBooking = () => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Capacity</label>
               <div class="col-sm-5">
-              <input type="number" class="form-control" id="cpacity" placeholder="Cpacity" value={capacity} onChange={(e) => setCapacity(e.target.value)}></input>
+              <input type="number" class="form-control" id="cpacity" placeholder="Cpacity" value={capacity} onChange={capacityChangeHandler}></input>
             </div>
               </div>
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Duaration</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1" value={bookfor} onChange={(e) => setBookFor(e.target.value)}>
+              <select class="form-control" id="exampleFormControlSelect1" value={bookfor} onChange={bookforChangeHandler}>
                 <option>Duration</option>
                 <option>Full-Day</option>
                 <option>Two-Days</option>
@@ -124,19 +205,19 @@ const AddBooking = () => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Price Per Day</label>
               <div class="col-sm-5">
-              <input type="number" class="form-control" id="price" placeholder="Price" value={priceperday} onChange={(e) => setPricePerDay(e.target.value)}></input>
+              <input type="number" class="form-control" id="price" placeholder="Price" value={priceperday} onChange={priceperdayChangeHandler}></input>
               </div>
               </div>
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Total</label>
               <div class="col-sm-5">
-               <input type="number" class="form-control" id="price" placeholder="Total"  value={total} onChange={(e) => setTotal(e.target.value)}></input>
+               <input type="number" class="form-control" id="price" placeholder="Total"  value={total} onChange={totalChangeHandler}></input>
                 </div>
                  </div>
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Status</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={statusChangeHandler}>
                 <option>Status</option>
                 <option>Canceled</option>
                 <option>Accepted</option>
@@ -161,61 +242,55 @@ const AddBooking = () => {
   <div class="form-group row mb-4">
     <label  class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
+      <input type="text" class="form-control" id="name" placeholder="Name" value={name} onChange={nameChangeHandler}></input>
     </div>
   </div>
   <div class="form-group row mb-4">
   <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
   <div class="col-sm-5">
-    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" value={email} onChange={emailChangeHandler}></input>
   </div>
 </div>
   <div class="form-group row mb-4">
     <label for="phonenumber" class="col-sm-2 col-form-label">Phone</label>
     <div class="col-sm-5">
-      <input type="number" class="form-control" id="phone" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input>
+      <input type="number" class="form-control" id="phone" placeholder="Phone" value={phone} onChange={phoneChangeHandler}></input>
     </div>
   </div>
-  <div class="form-group row mb-4">
-  <label for="notes" class="col-sm-2 col-form-label">Notes</label>
-  <div class="col-sm-5">
-    <textarea type="text" class="form-control" id="notes" placeholder="Notes"></textarea>
-  </div>
-</div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Company</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Company name" value={company} onChange={(e) => setCompany(e.target.value)}></input>
+  <input type="text" class="form-control" id="name" placeholder="Company name" value={company} onChange={companyChangeHandler}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Address</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+  <input type="text" class="form-control" id="name" placeholder="Address" value={address} onChange={addressChangeHandler}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">City</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)}></input>
+  <input type="text" class="form-control" id="name" placeholder="City" value={city} onChange={cityChangeHandler}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">State</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="State" value={state} onChange={(e) => setState(e.target.value)}></input>
+  <input type="text" class="form-control" id="name" placeholder="State" value={state} onChange={stateChangeHandler}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Zip</label>
 <div class="col-sm-5">
-  <input type="text" class="form-control" id="name" placeholder="Zipcode" value={zip} onChange={(e) => setZip(e.target.value)}></input>
+  <input type="text" class="form-control" id="name" placeholder="Zipcode" value={zip} onChange={zipChangeHandler}></input>
 </div>
 </div>
 <div class="form-group row mb-4">
 <label  class="col-sm-2 col-form-label">Country</label>
 <div class="col-sm-5">
-<select class="form-control" id="exampleFormControlSelect1" value={country} onChange={(e) => setCountry(e.target.value)}>
+<select class="form-control" id="exampleFormControlSelect1" value={country} onChange={countryChangeHandler}>
   <option>India</option>
   <option>Srilanka</option>
   <option>Pakistan</option>

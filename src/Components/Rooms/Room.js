@@ -72,10 +72,8 @@ const Room = () => {
                 <table className="table table-striped border">
                     <thead>
                         <tr>
-                            {/* <th scope="col">Image</th> */}
                             <th scope="col">Room</th>
                             <th scope="col">Capacity</th>
-                            <th scope="col">Bokings</th>
                             <th scope="col">Price</th>
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
@@ -84,10 +82,8 @@ const Room = () => {
                     <tbody>
                         {filteredRooms?.map((room) => (
                             <tr>
-                                {/* <td></td> */}
                                 <td>{room.title}</td>
                                 <td>{room.capacity}</td>
-                                <td></td>
                                 <td>{room.priceperday}</td>
                                 <td>{room.status}</td>
                                 <td><i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }}   onClick={() => navigateToEditRoom(room)}></i>

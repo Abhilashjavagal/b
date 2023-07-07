@@ -4,6 +4,27 @@ import Sidebar from '../Sidebar';
 import { useAddusersMutation } from "../../rtkQuery";
 
 const AddUser = () => {
+ 
+    const usernameChangeHandler =
+       (e) => {
+          setUsername(e.target.value)
+     };
+       
+     const emailChangeHandler =
+       (e) => {
+        setEmail(e.target.value)
+     };
+
+     const roleChangeHandler =
+    (e) => {
+      setRole(e.target.value)
+    };
+
+    const statusChangeHandler =
+     (e) => {
+      setStatus(e.target.value)
+    };
+
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -33,6 +54,7 @@ const AddUser = () => {
         addusers(newUser).unwrap().then((res) => {
             console.log("Users", res)
             setSuccessMessage("User added successfully!");
+            navigate('/user')
             window.location.reload();
         })
     }
@@ -55,25 +77,25 @@ const AddUser = () => {
   <div class="form-group row mb-4">
     <label  class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="name" placeholder="Name" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+      <input type="text" class="form-control" id="name" placeholder="Name" value={username}  onChange={usernameChangeHandler} ></input>
     </div>
   </div>
   <div class="form-group row mb-4">
   <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
   <div class="col-sm-5">
-    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" value={email}  onChange={emailChangeHandler} ></input>
   </div>
 </div>
 <div class="form-group row mb-4">
     <label  class="col-sm-2 col-form-label">Role</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="name" placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)}></input>
+      <input type="text" class="form-control" id="name" placeholder="Role" value={role}  onChange={roleChangeHandler} ></input>
     </div>
   </div>
   <div class="form-group row mb-4">
   <label  class="col-sm-2 col-form-label">Status</label>
   <div class="col-sm-5">
-  <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={(e) => setStatus(e.target.value)}>
+  <select class="form-control" id="exampleFormControlSelect1" value={status}  onChange={statusChangeHandler} >
     <option>Pending</option>
     <option>Canceled</option>
     <option>Accepted</option>

@@ -57,20 +57,13 @@ const Dashboard = () => {
 
     return (
         <div className='container-fluid p-0'>
-              {/* <div className="header">
-                <p className="fs-2 mb-0 fw-bold">Meeting rooms</p>
-                <p className="fs-4 mb-0 fw-bold" style={{marginLeft:"50rem"}}>Welcome, {user.username}</p>
-                <Link to="/" className="d-flex align-items-center  px-0 text-dark text-decoration-none fs-5 fw-bold">
-                    <i className="fa fa-sign-out"></i> <span className="ms-3 d-none d-sm-inline">Logout</span>
-                    </Link>
-            </div> */}
             <div className='row'>
                 <div className='col-auto col-md-3 col-xl-2 p-0'>
                     <Sidebar />
                 </div>
                 <div className='col-auto col-md-9 col-xl-10'>
                     <div className='fs-2'>Dashboard</div>
-                    <div className='card shadow mt-3 p-5'>
+                    <div className='card  mt-3 p-5'>
                         <div className='row'>
                             <div className='col-sm-4'>
                                 <i className='fa fa-file-text-o ms-3' style={{ "fontSize": "3rem" }}></i><span style={{ fontSize: "1.5rem", fontWeight: "bold" }} className='ms-3'> {bookingsMadeToday} Bookings made today</span>
@@ -93,10 +86,10 @@ const Dashboard = () => {
                                 </figure>
                                 <div className='ms-4 me-4'>
                                     {latestBookings.map((booking) => (
-                                        <div>
+                                        <div className='latest_book'>
                                             <p className='mb-0'>{booking.title}</p>
-                                            <p className='mb-0 '>Date : {booking.date}</p>
-                                            <p key={booking.id} style={{ color: "blue", fontSize: "1rem", fontWeight: "bold" }}>{booking.users[0].name}</p>
+                                            <p className='mb-0'>Date : {booking.date}</p>
+                                            <p key={booking.id} style={{ color: "blue", fontSize: "1.5rem", fontWeight: "bold" , }}>{booking.users[0].name}</p>
                                             <hr></hr>
                                         </div>
 

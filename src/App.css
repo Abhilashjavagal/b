@@ -95,7 +95,13 @@
   cursor: not-allowed;
 }
 
-.latest_bookings{
+.latest_book{
+  text-align: left;
+  font-size: 1rem;
+}
+
+.ms-5{
+  padding-bottom: 1rem;
   text-align: left;
 }
 
@@ -120,7 +126,9 @@
 .fa-edit{
   color:blue !important
 }
-/* 
-.mycontent-left {
-  border-right: 1px dashed #333;
-} */
+
+.container-fluid{
+  background-color: navy;
+  color:white
+}
+
