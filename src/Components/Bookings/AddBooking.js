@@ -10,7 +10,6 @@ const AddBooking = () => {
     setDate(e.target.value)
  };
 
-
   const titleChangeHandler =
     (e) => {
       setTitle(e.target.value)
@@ -20,11 +19,6 @@ const AddBooking = () => {
     (e) => {
      setCapacity(e.target.value)
   };
-    
-  const bookforChangeHandler =
-  (e) => {
-      setBookFor(e.target.value)
-   };
 
    const priceperdayChangeHandler =
     (e) => {
@@ -106,6 +100,8 @@ const AddBooking = () => {
   const [country, setCountry] = useState('');
   const [addbooking, error, isLoading] = useAddbookingMutation()
   const [successMessage, setSuccessMessage] = useState("");
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
 
   useEffect(() => {
       let timer;
@@ -142,6 +138,36 @@ const AddBooking = () => {
     if (step === 1) {
         setStep(2);
     }
+}
+
+const bookforChangeHandler = (e) => {
+  const selectedDuration = e.target.value;
+  setBookFor(selectedDuration);
+  setSelectedTimeSlot('');
+
+  const slots = generateTimeSlots(selectedDuration, date);
+  setTimeSlots(slots);
+};
+
+const generateTimeSlots = (duration, date) => {
+  const timeSlots = [];
+  const today = new Date();
+  date = today.toISOString().split('T')[0];
+
+   if (duration === 'Hour') {
+    const startTime = 1;
+    const endTime = 12;
+    const slotDuration = 1;
+
+    for (let i = startTime; i <= endTime; i += slotDuration) {
+      const startTime = i.toFixed(2);
+      const endTime = (i + slotDuration).toFixed(2);
+      const timeSlot = `${startTime}-${endTime}`;
+      timeSlots.push(timeSlot);
+    }
+  }
+
+  return timeSlots;
 };
 
     return (
@@ -189,13 +215,30 @@ const AddBooking = () => {
               <label  class="col-sm-2 col-form-label">Duaration</label>
               <div class="col-sm-5">
               <select class="form-control" id="exampleFormControlSelect1" value={bookfor} onChange={bookforChangeHandler}>
-                <option>Duration</option>
-                <option>Full-Day</option>
-                <option>Two-Days</option>
-                <option>Half-Day</option>
+                <option value="">Select Option</option>
+                <option value="Multipledays">Multipledays</option>
+                <option value="Halfday">Halfday</option>
+                <option value="Hour">Hour</option>
               </select>
               </div>
               </div>
+              {bookfor && (
+                <>
+                <div class="form-group row mb-4">
+                         <label  class="col-sm-2 col-form-label"></label>
+                    <div className="col-5 mb-4">
+                    {timeSlots?.map((slot) => (
+                        <button key={slot}
+                         value={slot} onClick={() => setSelectedTimeSlot(slot)} className={`ms-3 me-3 mt-3 btn btn-light shadow p-3 time-slot ${selectedTimeSlot === slot ? 'selected' : ''}`}>
+                                {slot}
+                            
+                        </button>
+
+                    ))}
+                    </div>
+                    </div>
+                </>
+            )}
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Price Per Day</label>
               <div class="col-sm-5">
@@ -213,9 +256,9 @@ const AddBooking = () => {
               <div class="col-sm-5">
               <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={statusChangeHandler}>
                 <option>Status</option>
-                <option>Canceled</option>
-                <option>Accepted</option>
                 <option>Pending</option>
+                <option>Confirmed</option>
+                <option>Canceled</option>
               </select>
               </div>
               </div>

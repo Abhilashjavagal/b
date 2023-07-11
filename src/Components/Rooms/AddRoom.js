@@ -146,12 +146,16 @@ const AddRoom = () => {
   <input type="number" class="form-control" id="price" placeholder="Price" value={priceperday}  onChange={priceperdayChangeHandler}></input>
    </div>
   </div>
-   <div class="form-group row mb-4">
-    <label  class="col-sm-2 col-form-label">Status</label>
-    <div class="col-sm-5">
-    <input className="form-control form-control-lg" placeholder="Status" type="text" value={status}  onChange={statusChangeHandler}></input>
-   </div>
-</div>
+  <div class="form-group row mb-4">
+        <label  class="col-sm-2 col-form-label">Status</label>
+        <div class="col-sm-5">
+        <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={statusChangeHandler}>
+        <option>Select Option</option>
+        <option>Active</option>
+         <option>Inactive</option>
+         </select>
+         </div>
+         </div>
  
  </form>
 

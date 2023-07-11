@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar';
 import { useNavigate } from "react-router-dom";
 import { useBookingsQuery, useDeleteBookingMutation, useUsersQuery } from '../../rtkQuery';
+import { Height } from '@mui/icons-material';
 
 
 const Booking = () => {
@@ -12,6 +13,11 @@ const Booking = () => {
     const [deleteBooking] = useDeleteBookingMutation();
     const [successMessage, setSuccessMessage] = useState("");
 
+    
+    const handleStatusChange = (status) => {
+        setSelectedStatus(status);
+    };
+    
     useEffect(() => {
         let timer;
         if (successMessage) {
@@ -24,10 +30,6 @@ const Booking = () => {
 
     let filteredBookings = bookingData;
 
-    const handleStatusChange = (status) => {
-        setSelectedStatus(status);
-    };
-
     const handleSearch = (event) => {
         setSearchBooking(event.target.value);
     };
@@ -39,7 +41,7 @@ const Booking = () => {
     filteredBookings = filteredBookings?.filter((response) =>
         response.title.toLowerCase().includes(searchBooking.toLowerCase())
     )
-    
+
     const handleDelete = (bookingId) => {
         deleteBooking(bookingId).unwrap().then((res)=>{
             setSuccessMessage("Booking deleted successfully!");
@@ -64,7 +66,34 @@ const Booking = () => {
                 <input type="text" name="search" class="input"  value={searchBooking}
                 onChange={handleSearch} placeholder="Search" />
             </div>
-            </div>
+          
+            
+            <div className="col-8 gap-2 d-md-flex justify-content-md-end" style={{"height":"50px" , marginTop:"20px"}}>
+            <button
+                type="button"
+                class="btn btn-primary" 
+                onClick={() => handleStatusChange('All')}> All
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => handleStatusChange('Pending')}>
+                Pending
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary" 
+                onClick={() => handleStatusChange('Confirmed')}>
+                Confirmed
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary" 
+                onClick={() => handleStatusChange('Cancelled')}>
+                Cancelled
+            </button>
+        </div>
+        </div>
 
             {filteredBookings?.length === 0 ? (
                 <div>No data found.</div>

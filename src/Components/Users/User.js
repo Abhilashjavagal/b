@@ -38,18 +38,13 @@ const User = () => {
         setSearchUser(event.target.value);
     };
 
-    // Filter based on Status
     if (selectedStatus !== 'All') {
         filteredUsers = filteredUsers.filter((user) => user.status === selectedStatus);
     }
-    // Filtering using search field
+
     filteredUsers = filteredUsers?.filter((response) =>
         response.username.toLowerCase().includes(searchUser.toLowerCase())
     )
-
-    const navigateToEditUser = (user) => {
-        navigate(`/users/editUser/${user.id}`, { state: { user } })
-    }
 
     const handleDelete = (userId) => {
         deleteUser(userId).unwrap().then((res)=>{

@@ -6,6 +6,7 @@ import { useDeleteRoomMutation, useRoomsQuery } from "../../rtkQuery";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import { Box } from "@mui/material";
+import user from '../../Images/meetingroom.jpg'
 
 const Room = () => {
     const [searchRoom, setSearchRoom] = useState('');
@@ -32,10 +33,6 @@ const Room = () => {
     const handleSearch = (event) => {
         setSearchRoom(event.target.value);
     };
-
-    const navigateToEditRoom = (room) => {
-        navigate(`/rooms/editroom/${room.id}`, { state: { room } })
-    }
 
     const handleDelete = (roomId) => {
         deleteRoom(roomId).unwrap().then((res) => {
@@ -71,6 +68,7 @@ const Room = () => {
                 <table className="table table-striped border">
                     <thead>
                         <tr>
+                        <th scope="col">Image</th>
                             <th scope="col">Room</th>
                             <th scope="col">Capacity</th>
                             <th scope="col">Price</th>
@@ -81,6 +79,7 @@ const Room = () => {
                     <tbody>
                         {filteredRooms?.map((room) => (
                             <tr>
+                            <td><img src={user} width={"100px"}/></td>
                                 <td>{room.title}</td>
                                 <td>{room.capacity}</td>
                                 <td>{room.priceperday}</td>

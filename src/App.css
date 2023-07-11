@@ -123,8 +123,8 @@
 }
 
 .container-fluid{
-  background-color: navy;
-  color:white
+  background-color: white;
+
 }
 
 .room_image{
@@ -141,4 +141,8 @@
 
 .user_booking{
   padding:3rem;
+}
+
+.sidebar{
+  padding: 0 !important;
 }
