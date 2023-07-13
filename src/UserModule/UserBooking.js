@@ -91,7 +91,6 @@ const generateTimeSlots = (duration, date) => {
               {bookfor && (
                 <>
                 <div class="form-group row mb-4">
-                        <label  class="col-sm-2 col-form-label">Time Slot</label>
                     <div className="col-6 mb-4">
                     {timeSlots?.map((slot) => (
                         <button key={slot}
@@ -115,7 +114,7 @@ const generateTimeSlots = (duration, date) => {
 
       <div class="row">
      <div class="col-5">
-     <button type="button" class="btn btn-success">Save</button>
+     <button type="button" class="btn btn-success"  onClick={() => navigate("/userrooms")}>Save</button>
      </div>
     <div class="col-1">
      <button type="button" class="btn btn-danger"  onClick={() => navigate("/userrooms")}>Back</button>

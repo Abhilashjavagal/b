@@ -56,10 +56,14 @@ export const meetingRoomBookingApi = createApi({
                 method: 'DELETE',
             })
         }),
+
+        getroombookings: builder.query ({
+            query:() => "/userBookings"
+        })
     })
 })
 
 export const {  useRoomsQuery,
     useAddroomsMutation, useDeleteRoomMutation,
     useBookingsQuery, useAddbookingMutation, useDeleteBookingMutation,
-    useGetusersQuery, useAddusersMutation, useDeleteUserMutation,} = meetingRoomBookingApi;
+    useGetusersQuery, useAddusersMutation, useDeleteUserMutation, useGetroombookingsQuery} = meetingRoomBookingApi;

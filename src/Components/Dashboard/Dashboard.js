@@ -8,8 +8,6 @@ import { useLocation } from 'react-router-dom';
 const Dashboard = () => {
     const { data: bookings, error } = useBookingsQuery();
     const [selectedDate, setSelectedDate] = useState('');
-    // const location = useLocation();
-    // const {user} = location.state;
 
 
     let bookingsMadeToday = 0;
@@ -78,10 +76,11 @@ const Dashboard = () => {
                     </div>
                     <div className='row my-5'>
                         <div className='col-4'>
-                            <div className='card shadow' style={{ height: "25rem" }}>
+                            <div className='card' style={{ height: "25rem" }}>
                                 <figure className="text-start ms-4 mt-3">
                                     <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
                                         <p>Latest Bookings</p>
+                                        <hr></hr>
                                     </blockquote>
                                 </figure>
                                 <div className='ms-4 me-4'>
@@ -98,10 +97,11 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='col-4'>
-                            <div className='card shadow' style={{ height: "25rem"}}>
+                            <div className='card' style={{ height: "25rem"}}>
                                 <figure className="text-start  ms-4 mt-3">
                                     <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
                                         <p>Reservations</p>
+                                        <hr></hr>
                                     </blockquote>
                                 </figure>
                                 <div className='row ms-4 me-4'>
@@ -124,15 +124,16 @@ const Dashboard = () => {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className='ms-4 me-4'>No bookings available for the selected date.</p>
+                                    <p></p>
                                 )}
                             </div>
                         </div>
                         <div className='col-4'>
-                            <div className='card shadow' style={{ height: "25rem" }}>
+                            <div className='card' style={{ height: "25rem" }}>
                                 <figure className="text-start  ms-4 mt-3">
                                     <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
                                         <p>Quick Links</p>
+                                        <hr></hr>
                                     </blockquote>
                                 </figure>
                                 <Link to="/addbooking" className='ms-5'>+ Add Booking</Link>

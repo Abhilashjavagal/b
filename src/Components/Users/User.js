@@ -3,7 +3,6 @@ import Sidebar from '../Sidebar';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDeleteRoomMutation, useRoomsQuery } from "../../rtkQuery";
-import user from "../../Images/meetingroom.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import { Box } from "@mui/material";

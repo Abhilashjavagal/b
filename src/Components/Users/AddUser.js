@@ -69,7 +69,7 @@ const AddUser = () => {
 
                 <div className="col-10">
                 {successMessage && <div className="mt-3 alert alert-success">{successMessage}</div>}
-                <div className='fs-2 ms-3 font-weight-bold'>Add User</div>
+                <div className='fs-2 ms-3 font-weight-bold' style={{padding: "2rem", }}>Add User</div>
               
                   <div className="row">
                     

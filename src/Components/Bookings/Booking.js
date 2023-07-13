@@ -83,8 +83,8 @@ const Booking = () => {
             <button
                 type="button"
                 class="btn btn-primary" 
-                onClick={() => handleStatusChange('Confirmed')}>
-                Confirmed
+                onClick={() => handleStatusChange('Accepted')}>
+                Accepted
             </button>
             <button
                 type="button"

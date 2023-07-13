@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAddbookingMutation } from "../../rtkQuery";
+import { useRoomsQuery, useAddbookingMutation } from "../../rtkQuery";
 import Sidebar from '../Sidebar';
 
 const AddBooking = () => {
@@ -102,6 +102,8 @@ const AddBooking = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [timeSlots, setTimeSlots] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  const { data: roomData, error: Error } = useRoomsQuery();
+  const [searchRoom, setSearchRoom] = useState('');
 
   useEffect(() => {
       let timer;
@@ -113,6 +115,9 @@ const AddBooking = () => {
       return () => clearTimeout(timer);
   }, [successMessage]);
 
+  const filteredRooms = roomData?.filter((response) =>
+  response.title.toLowerCase().includes(searchRoom.toLowerCase())
+)
 
   const handleAddBooking = (e) => {
       e.preventDefault();
@@ -198,11 +203,15 @@ const generateTimeSlots = (duration, date) => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Rooms</label>
               <div class="col-sm-5">
-              <select class="form-control" id="exampleFormControlSelect1"  value={title} onChange={titleChangeHandler}>
-                <option>Rooms</option>
-                <option>Small Conference</option>
-                <option>Large Conference</option>
-              </select>
+              <select className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}>
+              <option value="">Select a Room</option>
+              {filteredRooms?.map((room) => (
+                  <>
+                      <option value={room.title}>{room.title}</option>
+                  </>
+
+              ))}
+          </select>
               </div>
               </div>
               <div class="form-group row mb-4">
@@ -257,8 +266,8 @@ const generateTimeSlots = (duration, date) => {
               <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={statusChangeHandler}>
                 <option>Status</option>
                 <option>Pending</option>
-                <option>Confirmed</option>
-                <option>Canceled</option>
+                <option>Accepted</option>
+                <option>Cancelled</option>
               </select>
               </div>
               </div>

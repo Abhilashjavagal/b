@@ -6,7 +6,7 @@ import { useDeleteRoomMutation, useRoomsQuery, useBookingsQuery } from "../../rt
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import { Box } from "@mui/material";
-import user from '../../Images/meetingroom.jpg'
+
 
 const Room = () => {
     const [searchRoom, setSearchRoom] = useState('');
@@ -94,7 +94,7 @@ const Room = () => {
             </div>
 
             {filteredRooms?.length === 0 ? (
-                <div>No data found.</div>
+                <div>No Room found.</div>
             ) : (
                 <table className="table table-striped border">
                     <thead>
@@ -110,7 +110,7 @@ const Room = () => {
                     <tbody>
                         {filteredRooms?.map((room) => (
                             <tr>
-                            <td><img src={user} width={"100px"}/></td>
+                            <td><img src={room.image} width={"100px"}/></td>
                                 <td>{room.title}</td>
                                 <td>{room.capacity}</td>
                                 <td>{room.priceperday}</td>
