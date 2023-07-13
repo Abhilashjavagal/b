@@ -152,7 +152,7 @@ const AddRoom = () => {
         <select class="form-control" id="exampleFormControlSelect1" value={status} onChange={statusChangeHandler}>
         <option>Select Option</option>
         <option>Active</option>
-         <option>Inactive</option>
+         <option>InActive</option>
          </select>
          </div>
          </div>

@@ -98,7 +98,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='col-4'>
-                            <div className='card shadow' style={{ height: "25rem" }}>
+                            <div className='card shadow' style={{ height: "25rem"}}>
                                 <figure className="text-start  ms-4 mt-3">
                                     <blockquote className="blockquote" style={{ "fontWeight": "bold" }}>
                                         <p>Reservations</p>

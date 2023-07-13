@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDeleteRoomMutation, useRoomsQuery } from "../../rtkQuery";
+import { useDeleteRoomMutation, useRoomsQuery, useBookingsQuery } from "../../rtkQuery";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import { Box } from "@mui/material";
@@ -14,6 +14,9 @@ const Room = () => {
     const [deleteRoom] = useDeleteRoomMutation();
     const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState('All');
+    const { data: bookingData, error: bookingError } = useBookingsQuery();
+    let  filteredRooms;
 
     useEffect(() => {
         let timer;
@@ -24,14 +27,22 @@ const Room = () => {
         }
         return () => clearTimeout(timer);
     }, [successMessage]);
-
-
-    const filteredRooms = data?.filter((response) =>
+     
+    filteredRooms = data?.map((response)=> {
+        const bookingsCount = bookingData?.filter((booking) => booking.title === response.title).length;
+        return { ...response, bookingsCount };
+    })?.filter((response) =>
         response.title.toLowerCase().includes(searchRoom.toLowerCase())
     )
 
     const handleSearch = (event) => {
         setSearchRoom(event.target.value);
+    };
+    const handleFilterChange = (status) => {
+        setSelectedStatus(status);
+    };
+    if (selectedStatus !== 'All') {
+        filteredRooms = filteredRooms.filter((room) => room.status === selectedStatus);
     };
 
     const handleDelete = (roomId) => {
@@ -39,8 +50,6 @@ const Room = () => {
             setSuccessMessage("Room deleted successfully!");
             window.location.reload();
         })
-
-
  
     }
 
@@ -61,7 +70,29 @@ const Room = () => {
                 <input type="text" name="search" class="input"  value={searchRoom}
                 onChange={handleSearch} placeholder="Search" />
             </div>
+
+          
+            <div className="col-8 gap-2 d-md-flex justify-content-md-end" style={{"height":"50px" , marginTop:"20px"}}>
+            <button
+                    type="button"
+                    class="btn btn-primary" 
+                    onClick={() => handleFilterChange('All')}> All
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary" 
+                    onClick={() => handleFilterChange('Active')}>
+                    Active
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary" 
+                    onClick={() => handleFilterChange('InActive')}>
+                        InActive
+                </button>
+               </div>
             </div>
+
             {filteredRooms?.length === 0 ? (
                 <div>No data found.</div>
             ) : (
