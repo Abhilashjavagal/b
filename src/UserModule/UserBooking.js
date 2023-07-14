@@ -90,17 +90,18 @@ const generateTimeSlots = (duration, date) => {
               </div>
               {bookfor && (
                 <>
-                <div class="form-group row mb-4">
-                    <div className="col-6 mb-4">
-                    {timeSlots?.map((slot) => (
-                        <button key={slot}
-                         value={slot} onClick={() => setSelectedTimeSlot(slot)} className={`ms-3 me-3 mt-3 btn btn-light shadow p-3 time-slot ${selectedTimeSlot === slot ? 'selected' : ''}`}>
-                                {slot}
-                            
-                        </button>
-
-                    ))}
+                    <div className="col-2 mb-4">
+                        <label className="fs-5">Time Slot</label>
                     </div>
+                    <div className="col-6 mb-4">
+                        {timeSlots?.map((slot) => (
+                            <button key={slot}
+                                value={slot} onClick={() => setSelectedTimeSlot(slot)} className={`ms-3 me-3 mt-3 btn btn-light  p-3 time-slot ${selectedTimeSlot === slot ? 'selected' : ''}`}>
+                                {slot}
+
+                            </button>
+
+                        ))}
                     </div>
                 </>
             )}

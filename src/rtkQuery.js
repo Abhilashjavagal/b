@@ -4,6 +4,16 @@ export const meetingRoomBookingApi = createApi({
     reducerPath: 'meetingRoomBookingApi',
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
     endpoints: (builder) => ({
+        login: builder.query({
+            query: (credentials) => `/users?email=${credentials.email}&password=${credentials.password}`
+        }),
+        signup: builder.mutation({
+            query: (user) => ({
+                url: '/users',
+                method: 'POST',
+                body: user,
+            }),
+        }),
        
         
         bookings: builder.query({
@@ -14,6 +24,13 @@ export const meetingRoomBookingApi = createApi({
                 url: "/bookings",
                 method: "POST",
                 body: booking,
+            })
+        }),
+        editbooking: builder.mutation({
+            query: (booking) => ({
+                url: `/rooms/${booking.id}`,
+                method: 'PUT',
+                body: booking
             })
         }),
         deleteBooking: builder.mutation({
@@ -33,6 +50,13 @@ export const meetingRoomBookingApi = createApi({
                 body: room,
             })
         }),
+        editroom: builder.mutation({
+            query: (room) => ({
+                url: `/rooms/${room.id}`,
+                method: 'PUT',
+                body: room
+            })
+        }),
         deleteRoom: builder.mutation({
             query: (id) => ({
                 url: `/rooms/${id}`,
@@ -50,6 +74,13 @@ export const meetingRoomBookingApi = createApi({
                 body: user
             })
         }),
+        edituser : builder.mutation({
+            query: (user) => ({
+                url: `/users/${user.id}`,
+                method: 'PUT',
+                body: user
+            })
+        }),
         deleteUser: builder.mutation({
             query: (id) => ({
                 url: `/users/${id}`,
@@ -63,7 +94,7 @@ export const meetingRoomBookingApi = createApi({
     })
 })
 
-export const {  useRoomsQuery,
-    useAddroomsMutation, useDeleteRoomMutation,
-    useBookingsQuery, useAddbookingMutation, useDeleteBookingMutation,
+export const { useLoginQuery,  useSignupMutation , useRoomsQuery,
+    useAddroomsMutation, useEditroomMutation, useDeleteRoomMutation, useEdituserMutation,
+    useBookingsQuery, useAddbookingMutation, useEditbookingMutation, useDeleteBookingMutation,
     useGetusersQuery, useAddusersMutation, useDeleteUserMutation, useGetroombookingsQuery} = meetingRoomBookingApi;

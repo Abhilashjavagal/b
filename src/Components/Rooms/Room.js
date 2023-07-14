@@ -45,6 +45,10 @@ const Room = () => {
         filteredRooms = filteredRooms.filter((room) => room.status === selectedStatus);
     };
 
+    const navigateToEditRoom = (room) => {
+        navigate(`/editroom/${room.id}`, { state: { room } })
+    };
+
     const handleDelete = (roomId) => {
         deleteRoom(roomId).unwrap().then((res) => {
             setSuccessMessage("Room deleted successfully!");
@@ -116,6 +120,7 @@ const Room = () => {
                                 <td>{room.priceperday}</td>
                                 <td>{room.status}</td>
                                 <td>
+                                    <i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditRoom(room)}></i>
                                     <i className='fa fa-trash ms-3' style={{ "cursor": "pointer" }}    onClick={() => handleDelete(room.id)}></i>
                                 </td>
                             </tr>

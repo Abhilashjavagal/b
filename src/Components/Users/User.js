@@ -45,6 +45,11 @@ const User = () => {
         response.username.toLowerCase().includes(searchUser.toLowerCase())
     )
 
+    
+    const navigateToEditUser = (user) => {
+        navigate(`/edituser/${user.id}`, { state: { user } })
+    }
+
     const handleDelete = (userId) => {
         deleteUser(userId).unwrap().then((res)=>{
             setSuccessMessage("User deleted successfully!");
@@ -93,6 +98,7 @@ const User = () => {
                                 <td>{user.role}</td>
                                 <td>{user.status}</td>
                                 <td>
+                                <i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditUser(user)}></i>
                                     <i className='fa fa-trash ms-3'  style={{"cursor":"pointer"}} onClick={() => handleDelete(user.id)}></i>
                                 </td>
                             </tr>

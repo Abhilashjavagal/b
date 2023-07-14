@@ -203,7 +203,7 @@ const generateTimeSlots = (duration, date) => {
               <div class="form-group row mb-4">
               <label  class="col-sm-2 col-form-label">Rooms</label>
               <div class="col-sm-5">
-              <select className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}>
+              <select className="form-control" value={title} onChange={titleChangeHandler}>
               <option value="">Select a Room</option>
               {filteredRooms?.map((room) => (
                   <>

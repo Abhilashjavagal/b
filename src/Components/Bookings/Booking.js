@@ -42,6 +42,11 @@ const Booking = () => {
         response.title.toLowerCase().includes(searchBooking.toLowerCase())
     )
 
+    const navigateToEditBooking = (booking) => {
+        navigate(`/editbooking/${booking.id}`, { state: { booking } })
+    }
+
+
     const handleDelete = (bookingId) => {
         deleteBooking(bookingId).unwrap().then((res)=>{
             setSuccessMessage("Booking deleted successfully!");
@@ -98,7 +103,7 @@ const Booking = () => {
             {filteredBookings?.length === 0 ? (
                 <div>No data found.</div>
             ) : (
-                <table className="table table-striped border">
+                <table className="table table-striped border" >
                     <thead>
                         <tr>
                             {/* <th scope="col">Image</th> */}
@@ -110,7 +115,7 @@ const Booking = () => {
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {filteredBookings?.map((booking) => (
                             <tr key={booking.id}>
 
@@ -124,6 +129,7 @@ const Booking = () => {
                                 <td>{booking.total}</td>
                                 <td>{booking.status}</td>
                                 <td>
+                                    <i className='fa fa-edit ms-2' style={{ "cursor": "pointer" }} onClick={() => navigateToEditBooking(booking)}></i>
                                     <i className='fa fa-trash ms-3'  style={{"cursor":"pointer"}} onClick={() => handleDelete(booking.id)}></i>
                                 </td>
                             </tr>
