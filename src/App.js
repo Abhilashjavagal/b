@@ -15,6 +15,7 @@ import AddUser from './Components/Users/AddUser';
 import EditUser from './Components/Users/EditUser'
 import UserRooms from './UserModule/UserRooms';
 import UserBooking from './UserModule/UserBooking';
+import UserConfirmation from './UserModule/UserConfirmation';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/edituser/:id" element={<EditUser/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/userrooms" element={<UserRooms />} />
+        <Route path="/confirmation" element={<UserConfirmation/>} />
         <Route path="/userbooking/:id" element={<UserBooking />} />
       </Routes>
 </div>

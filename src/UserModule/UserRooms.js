@@ -8,7 +8,7 @@ const UserRooms = () => {
     const userName = localStorage.getItem("UserName")
 
     const navigateToAddBookingRoom = (booking) => {
-        navigate('/userbooking/:id')
+        navigate('/userbooking/:id',{state:{booking}})
     }
 
     const handleLogout = () => {
