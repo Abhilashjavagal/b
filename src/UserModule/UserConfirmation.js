@@ -13,7 +13,7 @@ const UserConformation = () => {
     const handleBooking = () => {
         addbooking(newBooking).unwrap().then((res) => {
             setSuccessMessage("Booking added successfully!");
-            navigate('/userrooms');
+            navigate('/dashboard');
             localStorage.removeItem('BookingData');
         })
     }
