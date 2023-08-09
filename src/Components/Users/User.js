@@ -41,10 +41,6 @@ const User = () => {
         filteredUsers = filteredUsers.filter((user) => user.status === selectedStatus);
     }
 
-    filteredUsers = filteredUsers?.filter((response) =>
-        response.username.toLowerCase().includes(searchUser.toLowerCase())
-    )
-
     
     const navigateToEditUser = (user) => {
         navigate(`/edituser/${user.id}`, { state: { user } })

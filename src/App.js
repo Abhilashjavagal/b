@@ -1,5 +1,5 @@
-import LoginPage from './Components/LoginPage';
-import SignupPage from './Components/SignupPage';
+// import LoginPage from './Components/LoginPage';
+// import SignupPage from './Components/SignupPage';
 import Sidebar from './Components/Sidebar';
 import AddBooking from './Components/Bookings/AddBooking';
 import { Route, Routes } from "react-router-dom";
@@ -16,27 +16,35 @@ import EditUser from './Components/Users/EditUser'
 import UserRooms from './UserModule/UserRooms';
 import UserBooking from './UserModule/UserBooking';
 import UserConfirmation from './UserModule/UserConfirmation';
+import React, { lazy, Suspense } from 'react';
+
+const LoginPage = lazy(() => import('./Components/LoginPage'));
+const SignupPage =lazy(() => {  return new Promise(resolve => setTimeout(resolve, 5 * 1000)).then(    () =>      import('./Components/SignupPage') )});
+
 
 const App = () => {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/booking" element={<Booking/>} />
-        <Route path="/addbooking" element={<AddBooking />} />
-        <Route path="/editbooking/:id" element={<EditBooking />}></Route>
-        <Route path="/room" element={<Room />} />
-        <Route path="/addrooms" element={<AddRoom />} />
-        <Route path="/editroom/:id" element={<EditRoom />}></Route>
-        <Route path="/user" element={<User />} />
-        <Route path="/adduser" element={<AddUser/>} />
-        <Route path="/edituser/:id" element={<EditUser/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/userrooms" element={<UserRooms />} />
-        <Route path="/confirmation" element={<UserConfirmation/>} />
-        <Route path="/userbooking/:id" element={<UserBooking />} />
-      </Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+    <Routes>
+    <Route path="/" element={<LoginPage />} />
+    <Route path="/signup" element={<SignupPage />} />
+    <Route path="/booking" element={<Booking/>} />
+    <Route path="/addbooking" element={<AddBooking />} />
+    <Route path="/editbooking/:id" element={<EditBooking />}></Route>
+    <Route path="/room" element={<Room />} />
+    <Route path="/addrooms" element={<AddRoom />} />
+    <Route path="/editroom/:id" element={<EditRoom />}></Route>
+    <Route path="/user" element={<User />} />
+    <Route path="/adduser" element={<AddUser/>} />
+    <Route path="/edituser/:id" element={<EditUser/>} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/userrooms" element={<UserRooms />} />
+    <Route path="/confirmation" element={<UserConfirmation/>} />
+    <Route path="/userbooking/:id" element={<UserBooking />} />
+  </Routes>
+    </Suspense>
+   
 </div>
   );
 };

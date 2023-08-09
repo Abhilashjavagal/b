@@ -31,9 +31,7 @@ const Room = () => {
     filteredRooms = data?.map((response)=> {
         const bookingsCount = bookingData?.filter((booking) => booking.title === response.title).length;
         return { ...response, bookingsCount };
-    })?.filter((response) =>
-        response.title.toLowerCase().includes(searchRoom.toLowerCase())
-    )
+    })
 
     const handleSearch = (event) => {
         setSearchRoom(event.target.value);
